@@ -19,7 +19,7 @@ public class CameraRotate : MonoBehaviour
         limit = Mathf.Abs(limit);
         if (limit > 90) limit = 90;
         offset = new Vector3(offset.x, offset.y, -Mathf.Abs(zoomMax) / 2);
-        transform.position = target.position + offset;
+        transform.localPosition = target.localPosition + offset;
 
         RotateCam();
         ZoomCamera();
@@ -50,12 +50,12 @@ public class CameraRotate : MonoBehaviour
         Y += Input.GetAxis("Mouse Y") * sensitivity;
         Y = Mathf.Clamp(Y, -limit, limit);
         transform.localEulerAngles = new Vector3(-Y, X, 0);
-        transform.position = transform.localRotation * offset + target.position;
+        transform.localPosition = transform.localRotation * offset + target.localPosition;
     }
 
     private void ZoomCamera()
     {
         offset.z = Mathf.Clamp(offset.z, -Mathf.Abs(zoomMin), -Mathf.Abs(zoomMax));
-        transform.position = transform.localRotation * offset + target.position;
+        transform.localPosition = transform.localRotation * offset + target.localPosition;
     }
 }
